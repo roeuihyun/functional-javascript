@@ -70,3 +70,44 @@
   log(b);
   log(rest);
 </script>
+
+
+<script>
+
+  // sample of fibonachi
+  // 숫자를 무한히 증가시켜주는 제너레이터
+  function* infinityNumber(i = 0){
+    while(true) yield i++;
+  }
+
+  // 숫자를 입력한 숫자까지만 증가하는걸 반복하도록 생성해준는 제너레이터
+  function* limit(l,iter){
+    for (const a of iter) {
+      yield a;
+      if (a == l) return;
+    }
+  }
+
+  function* printfib(l,fx) {
+    let t = 0;
+    for (const a of limit(l, infinityNumber(1))) {
+      // yield t = t + a;
+      yield fibonacci(a);
+    }
+  }
+
+  function fibonacci(n) {
+    let newArr = [0, 1]; //0번째 1번째 요소는 고정시켜두고 
+
+    let fib = (n) => { //함수 한개를 선언해주고
+    if (newArr[n] !== undefined){ 
+      return newArr[n]; //이미 있는 건 그대로 리턴
+    }
+    newArr[n] = fib(n - 1) + fib(n - 2); //없는 건 새로 만들어서 저장!!!*****
+      return newArr[n];
+    };
+
+    return fib(n); 
+  }
+
+</script>
